@@ -136,11 +136,3 @@ def split_nodes_link(old_nodes: list[TextNode]) -> list[TextNode]:
             new_list.append(TextNode(remaining_text, TextType.TEXT))
 
     return new_list
-
-node = TextNode(
-    "This is text with a link [to boot dev](https://www.boot.dev) and [to youtube](https://www.youtube.com/@bootdev)",
-    TextType.TEXT
-)
-
-new_nodes = split_nodes_link([node])
-print(new_nodes)
