@@ -1,6 +1,6 @@
 from textnode import TextNode
 from htmlnode import LeafNode
-from enums import TextType
+from enums import TextType, BlockType
 import re
 
 def text_node_to_html_node(text_node: TextNode) -> LeafNode:
@@ -137,4 +137,23 @@ def markdown_to_blocks(markdown):
             result.append(item.strip())
 
     return result
-    
+
+def block_to_block_type(block):
+    # Heading
+    for i in range(1, 7):
+        tmp = "#"
+        tmp *= i
+
+        if block.startswith(tmp + " "):
+            return BlockType.HEADING
+
+    # Code Blocks
+
+    # Quote Block
+
+    # Unordered List
+
+    # Ordered List
+
+    # None
+    return
