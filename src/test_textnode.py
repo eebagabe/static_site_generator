@@ -108,7 +108,7 @@ class TestTextNode(unittest.TestCase):
             nodes,
         )
 
-        def test_markdown_to_blocks(self):
+    def test_markdown_to_blocks(self):
             md = """
 This is **bolded** paragraph
 

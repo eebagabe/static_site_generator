@@ -128,4 +128,13 @@ def text_to_textnodes(text):
     return result
 
 def markdown_to_blocks(markdown):
-    pass
+    result = []
+
+    array = markdown.split("\n\n")
+
+    for item in array:
+        if item.strip() != "":
+            result.append(item.strip())
+
+    return result
+    
