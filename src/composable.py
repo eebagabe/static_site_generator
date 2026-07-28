@@ -148,6 +148,8 @@ def block_to_block_type(block):
             return BlockType.HEADING
 
     # Code Blocks
+    if block.startswith("```\n") and block.endswith("\n```"):
+        return BlockType.CODE
 
     # Quote Block
 
