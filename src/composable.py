@@ -139,6 +139,7 @@ def markdown_to_blocks(markdown):
     return result
 
 def block_to_block_type(block):
+    # Heading Verification
     for i in range(1, 7):
         tmp = "#"
         tmp *= i
@@ -146,13 +147,16 @@ def block_to_block_type(block):
         if block.startswith(tmp + " "):
             return BlockType.HEADING
 
+    # Code Verification
     if block.startswith("```\n") and block.endswith("\n```"):
         return BlockType.CODE
 
 
     lines_block = block.split("\n")
 
+    # Quote Verification
     is_quote = True
+
     for line in lines_block:
         if not line.startswith(">"):
             is_quote = False
@@ -161,7 +165,9 @@ def block_to_block_type(block):
     if is_quote:
         return BlockType.QUOTE
 
+    # Unordered List Verification
     is_unordered_list = True
+
     for line in lines_block:
         if not line.startswith("- "):
             is_unordered_list = False
@@ -170,6 +176,19 @@ def block_to_block_type(block):
     if is_unordered_list:
         return BlockType.UNORDERED_LIST
 
+
+    # Ordered List Verification
+    is_ordered_list = True
+
+    for index, line in enumerate(lines_block, start=1):
+        prefix = f"{index}. "
+
+        if not line.startswith(prefix):
+            is_ordered_list = False
+            break
+
+    if is_ordered_list:
+        return BlockType.ORDERED_LIST
 
     return BlockType.PARAGRAPH
 
