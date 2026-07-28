@@ -139,7 +139,6 @@ def markdown_to_blocks(markdown):
     return result
 
 def block_to_block_type(block):
-    # Heading
     for i in range(1, 7):
         tmp = "#"
         tmp *= i
@@ -147,15 +146,32 @@ def block_to_block_type(block):
         if block.startswith(tmp + " "):
             return BlockType.HEADING
 
-    # Code Blocks
     if block.startswith("```\n") and block.endswith("\n```"):
         return BlockType.CODE
 
-    # Quote Block
 
-    # Unordered List
+    lines_block = block.split("\n")
 
-    # Ordered List
+    is_quote = True
+    for line in lines_block:
+        if not line.startswith(">"):
+            is_quote = False
+            break
 
-    # None
-    return
+    if is_quote:
+        return BlockType.QUOTE
+
+    is_unordered_list = True
+    for line in lines_block:
+        if not line.startswith("- "):
+            is_unordered_list = False
+            break
+
+    if is_unordered_list:
+        return BlockType.UNORDERED_LIST
+
+
+    return BlockType.PARAGRAPH
+
+
+    
