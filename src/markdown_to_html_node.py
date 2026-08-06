@@ -25,7 +25,22 @@ def markdown_to_html_node(markdown):
 
             html_nodes.append(ParentNode(tag="p", children=content))
 
-        # Heading, Quote, Unordered List, Ordered List
+        elif block_type == BlockType.HEADING:
+            for i in range(1, 7):
+                tmp = "#"
+                tmp *= i
+
+                if block.startswith(tmp + " "):
+                    heading_text = clear_prefix_heading(block, i)
+                    heading_result = text_to_children(heading_text)
+                    heading_content = ParentNode(tag=f"h{i}", children=heading_result)
+
+                    html_nodes.append(heading_content)
+                    break
+
+        # Quote, Unordered List, Ordered List
+        
+
 
 
     return ParentNode(tag='div', children=html_nodes)
@@ -34,6 +49,9 @@ def clear_prefix_and_sufix(block, block_type):
     if block_type == BlockType.CODE:
         text = block[3:-3]
         return text.strip("\n")
+
+def clear_prefix_heading(block, times):
+    return block[times + 1:]
 
 def text_to_children(content):
     text_nodes = text_to_textnodes(content)

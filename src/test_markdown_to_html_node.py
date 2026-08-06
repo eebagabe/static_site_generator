@@ -35,5 +35,19 @@ the **same** even with inline stuff
         "<div><pre><code>This is text that _should_ remain\nthe **same** even with inline stuff\n</code></pre></div>",
     )
 
+def test_headings(self):
+    md = """
+# This is a heading
+
+## This is a heading with **bold** text
+"""
+
+    node = markdown_to_html_node(md)
+    html = node.to_html()
+    self.assertEqual(
+        html,
+        "<div><h1>This is a heading</h1><h2>This is a heading with <b>bold</b> text</h2></div>",
+    )
+
 if __name__ == "__main__":
     unittest.main()
