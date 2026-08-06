@@ -37,13 +37,25 @@ def markdown_to_html_node(markdown):
 
                     html_nodes.append(heading_content)
                     break
-
-        # Quote, Unordered List, Ordered List
         
+        elif block_type == BlockType.QUOTE:
+            blocks_quote = block.split("\n")
+
+            quote_array = []
+
+            for quote in blocks_quote:
+                quote_text_cleaned = clear_quote_prefix(quote)
+                quote_array.append(quote_text_cleaned)
+
+            quote_phrase_result = text_to_children(" ".join(quote_array))
+            html_nodes.append(ParentNode(tag="blockquote", children=quote_phrase_result))
 
 
 
     return ParentNode(tag='div', children=html_nodes)
+
+def clear_quote_prefix(text):
+    return text[2:]
 
 def clear_prefix_and_sufix(block, block_type):
     if block_type == BlockType.CODE:
