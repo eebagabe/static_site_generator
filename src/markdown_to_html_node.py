@@ -61,8 +61,25 @@ def markdown_to_html_node(markdown):
 
             html_nodes.append(ParentNode("ul", children=childrens_to_unordered_list))
 
+        elif block_type == BlockType.ORDERED_LIST:
+            blocks_ordered_list = block.split("\n")
+            childrens_to_ordered_list = []
+
+            for index, ordered_line in enumerate(blocks_ordered_list, start=1):
+                ordered_list_item_cleaned = clear_prefix_number(ordered_line, index)
+                ordered_item_child = text_to_children(ordered_list_item_cleaned)
+                childrens_to_ordered_list.append(ParentNode(tag="li", children=ordered_item_child))
+
+            html_nodes.append(ParentNode("ol", children=childrens_to_ordered_list))
+            
 
     return ParentNode(tag='div', children=html_nodes)
+
+def clear_prefix_number(text, index):
+    index_str = str(index) 
+    count_index_str = len(index_str)
+
+    return text[count_index_str + 2:]
 
 def clear_prefix(text):
     return text[2:]

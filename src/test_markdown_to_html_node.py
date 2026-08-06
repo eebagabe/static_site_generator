@@ -44,5 +44,19 @@ class TestMarkdownToHtmlNode(unittest.TestCase):
             "<div><ul><li>Primeiro item</li><li>Segundo item com <b>negrito</b></li><li>Terceiro item com <i>itálico</i></li></ul></div>",
         )
 
+    def test_ordered_list(self):
+        md = """
+1. Primeiro item
+2. Segundo item com **negrito**
+3. Terceiro item com _itálico_
+"""
+
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        self.assertEqual(
+            html,
+            "<div><ol><li>Primeiro item</li><li>Segundo item com <b>negrito</b></li><li>Terceiro item com <i>itálico</i></li></ol></div>",
+        )
+
 if __name__ == "__main__":
     unittest.main()
