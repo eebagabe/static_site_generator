@@ -18,9 +18,14 @@ def markdown_to_html_node(markdown):
 
         elif block_type == BlockType.PARAGRAPH:
             text_without_break_line = block.replace("\n", " ")
-            content = text_to_children(text_without_break_line)
+            text_without_double_whitespace = text_without_break_line.split()
+            text_reuslt = " ".join(text_without_double_whitespace)
+            
+            content = text_to_children(text_reuslt)
 
             html_nodes.append(ParentNode(tag="p", children=content))
+
+        # Heading, Quote, Unordered List, Ordered List
 
 
     return ParentNode(tag='div', children=html_nodes)
