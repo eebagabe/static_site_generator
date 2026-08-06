@@ -44,17 +44,27 @@ def markdown_to_html_node(markdown):
             quote_array = []
 
             for quote in blocks_quote:
-                quote_text_cleaned = clear_quote_prefix(quote)
+                quote_text_cleaned = clear_prefix(quote)
                 quote_array.append(quote_text_cleaned)
 
             quote_phrase_result = text_to_children(" ".join(quote_array))
             html_nodes.append(ParentNode(tag="blockquote", children=quote_phrase_result))
 
+        elif block_type == BlockType.UNORDERED_LIST:
+            blocks_unordered_list = block.split("\n")
+            childrens_to_unordered_list = []
+
+            for line in blocks_unordered_list:
+                unordered_list_item_cleaned = clear_prefix(line)
+                unordered_item_child = text_to_children(unordered_list_item_cleaned)
+                childrens_to_unordered_list.append(ParentNode(tag="li", children=unordered_item_child))
+
+            html_nodes.append(ParentNode("ul", children=childrens_to_unordered_list))
 
 
     return ParentNode(tag='div', children=html_nodes)
 
-def clear_quote_prefix(text):
+def clear_prefix(text):
     return text[2:]
 
 def clear_prefix_and_sufix(block, block_type):
