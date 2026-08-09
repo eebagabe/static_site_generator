@@ -1,6 +1,6 @@
 import unittest
 from enums import BlockType
-from composable import block_to_block_type
+from block_markdown import block_to_block_type
 
 
 class TestBlockToBlockType(unittest.TestCase):

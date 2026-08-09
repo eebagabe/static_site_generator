@@ -1,4 +1,5 @@
-from composable import markdown_to_blocks, block_to_block_type, text_to_textnodes, text_node_to_html_node
+from block_markdown import markdown_to_blocks, block_to_block_type
+from inline_markdown import text_to_textnodes, text_node_to_html_node
 from htmlnode import ParentNode, LeafNode
 from enums import BlockType
 
