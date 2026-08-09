@@ -1,5 +1,5 @@
-from textnode import TextNode
-from htmlnode import LeafNode
+from models.textnode import TextNode
+from models.htmlnode import LeafNode
 from enums import TextType, BlockType
 import re
 
