@@ -1,6 +1,6 @@
 from models.textnode import TextNode
 from models.htmlnode import LeafNode
-from enums import TextType, BlockType
+from enums.text_type import TextType
 import re
 
 def text_node_to_html_node(text_node: TextNode) -> LeafNode:

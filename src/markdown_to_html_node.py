@@ -1,7 +1,7 @@
 from block_markdown import markdown_to_blocks, block_to_block_type
 from inline_markdown import text_to_textnodes, text_node_to_html_node
 from models.htmlnode import ParentNode, LeafNode
-from enums import BlockType
+from enums.block_type import BlockType
 
 def markdown_to_html_node(markdown):
     blocks = markdown_to_blocks(markdown)

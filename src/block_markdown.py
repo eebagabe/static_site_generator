@@ -1,4 +1,4 @@
-from enums import BlockType
+from enums.block_type import BlockType
 
 def markdown_to_blocks(markdown):
     result = []

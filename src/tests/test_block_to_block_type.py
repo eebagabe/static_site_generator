@@ -1,5 +1,5 @@
 import unittest
-from enums import BlockType
+from enums.block_type import BlockType
 from block_markdown import block_to_block_type
 
 

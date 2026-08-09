@@ -2,7 +2,7 @@ import unittest
 from models.textnode import TextNode
 from inline_markdown import text_node_to_html_node, split_nodes_image, text_to_textnodes
 from block_markdown import markdown_to_blocks
-from enums import TextType
+from enums.text_type import TextType
 
 class TestTextNode(unittest.TestCase):
     def test_eq(self):
