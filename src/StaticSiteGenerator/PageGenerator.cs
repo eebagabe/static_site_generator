@@ -1,0 +1,30 @@
+namespace StaticSiteGenerator;
+
+public static class PageGenerator
+{
+    public static string ExtractTitle(string markdown)
+    {
+        foreach (var line in markdown.Split("\n"))
+        {
+            if (line.StartsWith("# "))
+                return line["# ".Length..].Trim();
+        }
+
+        throw new InvalidOperationException("Don't have a title in the markdown");
+    }
+
+    public static void GeneratePage(string fromPath, string templatePath, string destPath)
+    {
+        Console.WriteLine($"Generating page from {fromPath} to {destPath} using {templatePath}");
+
+        var markdown = File.ReadAllText(fromPath);
+        var template = File.ReadAllText(templatePath);
+
+        var html = template
+            .Replace("{{ Title }}", ExtractTitle(markdown))
+            .Replace("{{ Content }}", MarkdownToHtmlNode.Convert(markdown).ToHtml());
+
+        Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(destPath))!);
+        File.WriteAllText(destPath, html);
+    }
+}
