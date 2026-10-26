@@ -4,7 +4,9 @@ public static class Program
 {
     public static void Main(string[] args)
     {
-        CopyStatic.CopyStaticToPublic("static", "public");
-        PageGenerator.GeneratePagesRecursive("content", "template.html", "public");
+        var basePath = args.Length > 0 ? args[0] : "/";
+
+        CopyStatic.CopyStaticToPublic("static", "docs");
+        PageGenerator.GeneratePagesRecursive("content", "template.html", "docs", basePath);
     }
 }

@@ -60,4 +60,26 @@ public class PageGeneratorTests
 
         Directory.Delete(root, true);
     }
+
+    [Fact]
+    public void GeneratePage_PrefixesRootLinksWithBasePath()
+    {
+        var root = Directory.CreateTempSubdirectory().FullName;
+        var from = Path.Combine(root, "index.md");
+        var template = Path.Combine(root, "template.html");
+        var dest = Path.Combine(root, "index.html");
+
+        File.WriteAllText(from, "# Hi\n\n![img](/a.png) [link](/blog) [ext](https://boot.dev)");
+        File.WriteAllText(template, "<link href=\"/index.css\">{{ Content }}");
+
+        PageGenerator.GeneratePage(from, template, dest, "/repo/");
+
+        var html = File.ReadAllText(dest);
+        Assert.Contains("href=\"/repo/index.css\"", html);
+        Assert.Contains("src=\"/repo/a.png\"", html);
+        Assert.Contains("href=\"/repo/blog\"", html);
+        Assert.Contains("href=\"https://boot.dev\"", html);
+
+        Directory.Delete(root, true);
+    }
 }
