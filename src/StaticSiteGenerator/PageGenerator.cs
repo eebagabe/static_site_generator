@@ -27,4 +27,13 @@ public static class PageGenerator
         Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(destPath))!);
         File.WriteAllText(destPath, html);
     }
+
+    public static void GeneratePagesRecursive(string dirPathContent, string templatePath, string destDirPath)
+    {
+        foreach (var file in Directory.GetFiles(dirPathContent, "*.md", SearchOption.AllDirectories))
+        {
+            var relativePath = Path.ChangeExtension(Path.GetRelativePath(dirPathContent, file), ".html");
+            GeneratePage(file, templatePath, Path.Combine(destDirPath, relativePath));
+        }
+    }
 }

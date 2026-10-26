@@ -39,4 +39,25 @@ public class PageGeneratorTests
 
         Directory.Delete(root, true);
     }
+
+    [Fact]
+    public void GeneratePagesRecursive_MirrorsContentTree()
+    {
+        var root = Directory.CreateTempSubdirectory().FullName;
+        var content = Path.Combine(root, "content");
+        var template = Path.Combine(root, "template.html");
+        var dest = Path.Combine(root, "public");
+
+        Directory.CreateDirectory(Path.Combine(content, "blog", "tom"));
+        File.WriteAllText(Path.Combine(content, "index.md"), "# Home");
+        File.WriteAllText(Path.Combine(content, "blog", "tom", "index.md"), "# Tom");
+        File.WriteAllText(template, "{{ Title }}");
+
+        PageGenerator.GeneratePagesRecursive(content, template, dest);
+
+        Assert.Equal("Home", File.ReadAllText(Path.Combine(dest, "index.html")));
+        Assert.Equal("Tom", File.ReadAllText(Path.Combine(dest, "blog", "tom", "index.html")));
+
+        Directory.Delete(root, true);
+    }
 }
