@@ -1,1 +1,1 @@
-python3 src/main.py
+dotnet run --project src/StaticSiteGenerator
